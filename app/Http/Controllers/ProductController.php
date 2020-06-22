@@ -24,13 +24,6 @@ class ProductController extends Controller
             return ProductResource::collection($products);
         }
 
-        $props = Property::with('value')->whereHas('value', function ($query) use ($properties) {
-            foreach ($properties as $key => $property) {
-                $query->where('property_id', $key);
-                $query->whereIn('value', $property);
-            }
-        })->whereIn('id', array_keys($properties))->get();
-
         $props = ProductProperty::with('product');
         foreach ($properties as $propId => $value) {
             $props->where('property_id', $propId);
