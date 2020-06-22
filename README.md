@@ -1,2 +1,2 @@
-##cmd:
-#####php artisan migrate && php artisan passport:install && php artisan db:seed
+cmd:
+php artisan migrate && php artisan passport:install && php artisan db:seed
