@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 Route::post('singup', 'AuthController@singUp')->middleware('guest');
 Route::post('singin', 'AuthController@singIn')->middleware('guest');
 
-Route::apiResource('product', 'ProductController')->middleware('auth:api');
+Route::get('product', 'ProductController@index')->middleware('auth:api');

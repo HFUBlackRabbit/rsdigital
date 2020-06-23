@@ -11,6 +11,8 @@ class ProductPropertySeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\ProductProperty::class, 1000)->create();
+        for ($i = 0; $i < 2000; $i++) {
+            factory(\App\ProductProperty::class)->create();
+        }
     }
 }

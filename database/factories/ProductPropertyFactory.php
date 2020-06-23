@@ -9,7 +9,6 @@ use Faker\Generator as Faker;
 
 $factory->define(ProductProperty::class, function (Faker $faker) {
     $property = Property::orderByRaw('RAND()')->first();
-    $product = Product::orderByRaw('RAND()')->first();
     $value = '';
     switch ($property['type']) {
         case 'array':
@@ -20,6 +19,13 @@ $factory->define(ProductProperty::class, function (Faker $faker) {
             $value = $faker->randomDigit;
             break;
     }
+    $product = Product::whereDoesntHave('properties', function ($query) use ($value, $property) {
+        $query->where('property_id', $property['id']);
+        if ($property['type'] === 'array') {
+            $query->where('value', $value);
+        }
+    })
+        ->orderByRaw('RAND()')->first();
     return [
         'product_id' => $product['id'],
         'property_id' => $property['id'],
